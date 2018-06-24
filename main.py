@@ -1,4 +1,5 @@
 import ENwrapper
+import os
 import datetime
 
 def getTags():
@@ -18,8 +19,8 @@ def getToDos(clientType, day):
         return ENwrapper.getToDos(day)
 
 
-print "Which day?"
-day = raw_input()
+day = os.environ['TODODAY']
+print "Getting todos for " + day
 todos = getToDos("Evernote", day)
 print todos
 ENwrapper.createToDoList(todos)
