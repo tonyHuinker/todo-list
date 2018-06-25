@@ -18,8 +18,10 @@ def getToDos(clientType, day):
     if(clientType == "Evernote"):
         return ENwrapper.getToDos(day)
 
-
-day = os.environ['TODODAY']
+if 'TODODAY' in os.environ:
+    day = os.environ['TODODAY']
+else:
+    day = datetime.date.today().strftime("%A")
 print "Getting todos for " + day
 todos = getToDos("Evernote", day)
 print todos
