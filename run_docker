@@ -1,2 +1,0 @@
-docker run --env TODODAY=Sunday todolist
-
