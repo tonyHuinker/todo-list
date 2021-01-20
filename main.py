@@ -9,7 +9,7 @@ def getTags():
 
 def getAuthorization(clientType):
     if(clientType == "Evernote"):
-        print ENwrapper.testAuth()
+        print (ENwrapper.testAuth())
 
 def createTodoList(clientType):
     if(clientType == "Evernote"):
@@ -25,9 +25,9 @@ if 'TODODAY' in os.environ:
     day = os.environ['TODODAY']
 else:
     day = easternDT.strftime("%A")
-print "Getting todos for " + day
+print("Getting todos for " + day) 
 todos = getToDos("Evernote", day)
-print todos
+print(todos) 
 ENwrapper.createToDoList(todos)
 
 

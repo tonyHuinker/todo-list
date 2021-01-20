@@ -1,4 +1,3 @@
-
 from evernote.api.client import EvernoteClient
 import evernote.edam.type.ttypes as Types
 from evernote.edam.notestore.ttypes import NoteFilter, NotesMetadataResultSpec
@@ -23,15 +22,15 @@ def makeNote(authToken, noteStore, noteTitle, noteBody, parentNotebook=None):
     ## Attempt to create note in Evernote account
     try:
         note = noteStore.createNote(authToken, ourNote)
-    except Errors.EDAMUserException, edue:
+    except(Errors.EDAMUserException, edue) :
         # Something was wrong with the note data
         # See EDAMErrorCode enumeration for error code explanation
         # http://dev.evernote.com/documentation/reference/Errors.html#Enum_EDAMErrorCode
-        print "EDAMUserException:", edue
+        print("EDAMUserException:", edue) 
         return None
-    except Errors.EDAMNotFoundException, ednfe:
+    except(Errors.EDAMNotFoundException, ednfe) :
         ## Parent Notebook GUID doesn't correspond to an actual notebook
-        print "EDAMNotFoundException: Invalid parent notebook GUID"
+        print("EDAMNotFoundException: Invalid parent notebook GUID") 
         return None
 
     ## Return created note object
@@ -87,7 +86,7 @@ def getNoteBooks():
     notestore = client.get_note_store()
     notebooks = notestore.listNotebooks()
     for book in notebooks:
-        print book.name + " " + book.guid
+        print(book.name + " " + book.guid) 
 
 def getDayTag(day, notestore):
     DayTag = ""
@@ -133,7 +132,7 @@ def getToDos(day):
 
     notebody = ""
 
-    for tag,guid in ToDoTags.iteritems():
+    for tag,guid in iter(ToDoTags.items()):
         mylist = []
         mylist.append(guid)
         mylist.append(dayGuid)

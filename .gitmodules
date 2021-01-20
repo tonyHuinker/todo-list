@@ -1,3 +1,6 @@
 [submodule "evernote"]
 	path = evernote
 	url = git://github.com/evernote/evernote-sdk-python/
+[submodule "evernote-sdk-python3"]
+	path = evernote-sdk-python3
+	url = https://github.com/evernote/evernote-sdk-python3.git

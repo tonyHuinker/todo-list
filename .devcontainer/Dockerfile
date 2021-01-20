@@ -20,5 +20,3 @@ RUN python3 setup.py install
 # Define environment variable
 WORKDIR /todo
 
-# Run main.py when the container launches
-CMD ["python3" , "main.py"]
