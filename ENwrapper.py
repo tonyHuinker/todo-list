@@ -36,6 +36,32 @@ def makeNote(authToken, noteStore, noteTitle, noteBody, parentNotebook=None):
     ## Return created note object
     return note
 
+def deleteNote(noteGuid):
+    dev_token = getToken(False)
+    client = EvernoteClient(token=dev_token, sandbox=False)
+    notestore = client.get_note_store()
+    notestore.deleteNote(noteGuid)
+
+def removeAdd(guid, title, day, newday):
+    dev_token = getToken(False)
+    client = EvernoteClient(token=dev_token, sandbox=False)
+    notestore = client.get_note_store()
+    ourNote = Types.Note()
+    ourNote.guid = guid
+    ourNote.title = title
+    ourNote.tagGuids = [getDayTag(day, notestore)]
+    notestore.updateNote(ourNote)
+
+def removeAll(guid, title):
+    dev_token = getToken(False)
+    client = EvernoteClient(token=dev_token, sandbox=False)
+    notestore = client.get_note_store()
+    ourNote = Types.Note()
+    ourNote.guid = guid
+    ourNote.title = title
+    ourNote.tagGuids = []
+    notestore.updateNote(ourNote)
+
 def getToDoTags(authToken, notestore):
     tags = notestore.listTags()
     ToDoTags = {}
@@ -50,7 +76,7 @@ def contructNoteBody(ToDos):
     for key in ToDos:
         notebody += "<br /><br />**"+ key + "**<br /><br />"
         for todo in ToDos[key]:
-            notebody += '<en-todo/>'+todo+'<br />'
+            notebody += '<en-todo/>'+todo[0]+'<br />'
 
     return notebody
 
@@ -140,7 +166,7 @@ def getToDos(day):
         notes = notestore.findNotesMetadata(dev_token, myfilter, 0, 100, spec)
         TODOLIST[tag] = []
         for note in notes.notes:
-            TODOLIST[tag].append(note.title)
+            TODOLIST[tag].append((note.title, note.guid))
 
     return TODOLIST
 
