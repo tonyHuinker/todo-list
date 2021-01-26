@@ -13,7 +13,7 @@ ADD . /todo
 
 RUN pip3 install pytz
 RUN pip3 install oauth2
-WORKDIR /todo/evernote 
+WORKDIR /todo/evernote-sdk-python3 
 RUN python3 setup.py install
 
 
